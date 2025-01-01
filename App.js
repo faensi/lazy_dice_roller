@@ -12,16 +12,12 @@ import {
 } from 'react-native';
 
 const App = () => {
-  const [dice, setDice] = useState('1');          // Number of dice to roll
-  const [modifier, setModifier] = useState('0');  // Modifier to add
-  const [customSides, setCustomSides] = useState('3'); // Custom dice sides
-  const [history, setHistory] = useState([]);     // Roll history
+  const [dice, setDice] = useState('1');
+  const [modifier, setModifier] = useState('0');
+  const [customSides, setCustomSides] = useState('3');
+  const [history, setHistory] = useState([]);
 
-  // Store info about the last roll
-  // - sides: last dice sides used
-  // - count: how many dice were rolled
-  // - type: either 'preset' or 'custom'
-  const [lastRoll, setLastRoll] = useState({
+const [lastRoll, setLastRoll] = useState({
     sides: null,
     count: null,
     type: null,
@@ -55,10 +51,8 @@ const App = () => {
     }
     rollStr += ` = ${total}`;
 
-    // Update history
     setHistory((prev) => [rollStr, ...prev]);
 
-    // Save last roll info
     setLastRoll({ sides, count: numDice, type: 'preset' });
   };
 
@@ -182,8 +176,7 @@ const App = () => {
         </ScrollView>
 
         <Text style={styles.footer}>
-          This tool is released under a CC0 1.0 Universal license. You can copy, 
-          modify, and distribute this tool, even for commercial purposes.
+          This app is written using React Native and the code is available on github.com/faensi/lazy_dice_roller
         </Text>
       </KeyboardAvoidingView>
     </SafeAreaView>
