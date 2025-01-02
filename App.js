@@ -176,7 +176,7 @@ const App = () => {
         </ScrollView>
 
         <Text style={styles.footer}>
-          This app is written using React Native and the code is available on github.com/faensi/lazy_dice_roller
+          This app is written using React Native. The code is available on github.com/faensi/lazy_dice_roller
         </Text>
         <Text style={styles.footer}>
           Inspired by the creativity of Michael Shea / Slyflourish / The Lazy DM.

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "lazy_dice_roller",
+    "name": "Lazy Dice Roller",
     "slug": "lazy_dice_roller",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -16,6 +16,7 @@
       "supportsTablet": true
     },
     "android": {
+      "permissions": [],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
