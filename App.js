@@ -23,17 +23,12 @@ const App = () => {
     type: null,
   });
 
-  /**
-   * Rolls dice of given sides and updates the history.
-   * @param {number} sides - number of sides on the dice
-   */
   const handleRollDice = (sides) => {
     const numDice = parseInt(dice) || 1;
     const mod = parseInt(modifier) || 0;
 
     let rollsArray = [];
     let total = 0;
-
     for (let i = 0; i < numDice; i++) {
       const roll = Math.floor(Math.random() * sides) + 1;
       rollsArray.push(roll);
@@ -41,7 +36,6 @@ const App = () => {
     }
     total += mod;
 
-    // Build display string
     let rollStr = `${numDice}d${sides}`;
     if (numDice > 1) {
       rollStr += ` (${rollsArray.join(', ')})`;
@@ -52,13 +46,9 @@ const App = () => {
     rollStr += ` = ${total}`;
 
     setHistory((prev) => [rollStr, ...prev]);
-
     setLastRoll({ sides, count: numDice, type: 'preset' });
   };
 
-  /**
-   * Rolls custom dice with user-defined sides.
-   */
   const handleRollCustomDice = () => {
     const numDice = parseInt(dice) || 1;
     const mod = parseInt(modifier) || 0;
@@ -75,29 +65,20 @@ const App = () => {
       rollStr += ` + ${mod}`;
     }
     rollStr += ` = ${total}`;
-
-    // If multiple dice, show sum (excluding modifier)
     if (numDice > 1) {
       rollStr += ` (${total - mod})`;
     }
+
     setHistory((prev) => [rollStr, ...prev]);
     setLastRoll({ sides, count: numDice, type: 'custom' });
   };
 
-  /**
-   * Clears the roll history.
-   */
   const clearHistory = () => {
     setHistory([]);
   };
 
-  /**
-   * Re-roll the same dice as the last roll whenever
-   * the modifier changes and the user presses "Done."
-   */
   const handleModifierSubmit = () => {
     if (!lastRoll.sides || !lastRoll.count || !lastRoll.type) return;
-
     if (lastRoll.type === 'preset') {
       handleRollDice(lastRoll.sides);
     } else {
@@ -114,7 +95,7 @@ const App = () => {
       >
         <Text style={styles.title}>Lazy Dice Roller</Text>
 
-        {/* Inputs for Dice and Modifier */}
+        {/* Row for Dice and Modifier */}
         <View style={styles.inputRow}>
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Dice</Text>
@@ -154,26 +135,29 @@ const App = () => {
           ))}
         </View>
 
-        {/* Custom Dice */}
+        {/* Row for Custom Sides and Custom Button */}
         <View style={styles.inputRow}>
-          <TextInput
-            style={styles.input}
-            keyboardType="numeric"
-            value={customSides}
-            onChangeText={setCustomSides}
-            accessibilityLabel="Number of sides for custom dice"
-          />
-          <TouchableOpacity
-            style={styles.customButton}
-            onPress={handleRollCustomDice}
-            accessibilityLabel="Roll custom dice"
-            accessibilityRole="button"
-          >
-            <Text style={styles.customButtonText}>Custom</Text>
-          </TouchableOpacity>
+          <View style={styles.inputGroup}>
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              value={customSides}
+              onChangeText={setCustomSides}
+              accessibilityLabel="Number of sides for custom dice"
+            />
+          </View>
+          <View style={[styles.inputGroup, styles.customButtonContainer]}>
+            <TouchableOpacity
+              style={styles.customButton}
+              onPress={handleRollCustomDice}
+              accessibilityLabel="Roll custom dice"
+              accessibilityRole="button"
+            >
+              <Text style={styles.customButtonText}>Custom</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
-        {/* Clear History Button */}
         <TouchableOpacity
           style={styles.clearButton}
           onPress={clearHistory}
@@ -183,7 +167,6 @@ const App = () => {
           <Text style={styles.clearButtonText}>Clear History</Text>
         </TouchableOpacity>
 
-        {/* History */}
         <ScrollView style={styles.historyContainer}>
           {history.map((entry, index) => (
             <Text key={index} style={styles.historyText}>
@@ -262,14 +245,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
   },
-  customButton: {
-    backgroundColor: '#7b52ab',
+  customButtonContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  customButton: {
+    backgroundColor: '#7b52ab',
     paddingHorizontal: 20,
     minHeight: 48,
     borderRadius: 6,
-    marginLeft: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   customButtonText: {
     color: '#fff',
