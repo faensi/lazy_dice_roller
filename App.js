@@ -84,14 +84,16 @@ const App = () => {
     setLastRoll({ sides, count: numDice, type: 'custom' });
   };
 
-
+  /**
+   * Clears the roll history.
+   */
   const clearHistory = () => {
     setHistory([]);
   };
 
   /**
    * Re-roll the same dice as the last roll whenever
-   * the modifier changes are confirmed
+   * the modifier changes and the user presses "Done."
    */
   const handleModifierSubmit = () => {
     if (!lastRoll.sides || !lastRoll.count || !lastRoll.type) return;
@@ -110,7 +112,7 @@ const App = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={styles.container}
       >
-        <Text style={styles.title}>Dice Roller</Text>
+        <Text style={styles.title}>Lazy Dice Roller</Text>
 
         {/* Inputs for Dice and Modifier */}
         <View style={styles.inputRow}>
@@ -121,6 +123,7 @@ const App = () => {
               keyboardType="numeric"
               value={dice}
               onChangeText={setDice}
+              accessibilityLabel="Number of dice to roll"
             />
           </View>
           <View style={styles.inputGroup}>
@@ -131,6 +134,7 @@ const App = () => {
               value={modifier}
               onChangeText={setModifier}
               onSubmitEditing={handleModifierSubmit}
+              accessibilityLabel="Modifier to add to dice rolls"
             />
           </View>
         </View>
@@ -142,6 +146,8 @@ const App = () => {
               key={s}
               style={styles.diceButton}
               onPress={() => handleRollDice(parseInt(s))}
+              accessibilityLabel={`Roll a D${s}`}
+              accessibilityRole="button"
             >
               <Text style={styles.diceButtonText}>D{s}</Text>
             </TouchableOpacity>
@@ -155,14 +161,25 @@ const App = () => {
             keyboardType="numeric"
             value={customSides}
             onChangeText={setCustomSides}
+            accessibilityLabel="Number of sides for custom dice"
           />
-          <TouchableOpacity style={styles.customButton} onPress={handleRollCustomDice}>
+          <TouchableOpacity
+            style={styles.customButton}
+            onPress={handleRollCustomDice}
+            accessibilityLabel="Roll custom dice"
+            accessibilityRole="button"
+          >
             <Text style={styles.customButtonText}>Custom</Text>
           </TouchableOpacity>
         </View>
 
         {/* Clear History Button */}
-        <TouchableOpacity style={styles.clearButton} onPress={clearHistory}>
+        <TouchableOpacity
+          style={styles.clearButton}
+          onPress={clearHistory}
+          accessibilityLabel="Clear roll history"
+          accessibilityRole="button"
+        >
           <Text style={styles.clearButtonText}>Clear History</Text>
         </TouchableOpacity>
 
@@ -187,7 +204,6 @@ const App = () => {
 };
 
 export default App;
-
 
 const styles = StyleSheet.create({
   container: {
@@ -218,10 +234,11 @@ const styles = StyleSheet.create({
   input: {
     borderColor: '#333',
     borderWidth: 1,
-    fontSize: 16,
-    padding: 8,
+    fontSize: 18,
+    padding: 10,
     borderRadius: 4,
     textAlign: 'center',
+    minHeight: 48,
   },
   diceRow: {
     flexDirection: 'row',
@@ -231,36 +248,45 @@ const styles = StyleSheet.create({
   },
   diceButton: {
     backgroundColor: '#4a90e2',
+    minHeight: 48,
+    minWidth: 48,
     paddingVertical: 10,
     paddingHorizontal: 14,
     borderRadius: 6,
     margin: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   diceButtonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 20,
+    fontWeight: '600',
   },
   customButton: {
     backgroundColor: '#7b52ab',
     justifyContent: 'center',
-    paddingHorizontal: 14,
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    minHeight: 48,
     borderRadius: 6,
     marginLeft: 6,
   },
   customButtonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 18,
   },
   clearButton: {
     backgroundColor: '#e74c3c',
-    padding: 12,
     borderRadius: 6,
     marginTop: 6,
     alignSelf: 'stretch',
+    minHeight: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   clearButtonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 18,
     textAlign: 'center',
   },
   historyContainer: {
