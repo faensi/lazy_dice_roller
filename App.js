@@ -17,7 +17,7 @@ const App = () => {
   const [customSides, setCustomSides] = useState('3');
   const [history, setHistory] = useState([]);
 
-const [lastRoll, setLastRoll] = useState({
+  const [lastRoll, setLastRoll] = useState({
     sides: null,
     count: null,
     type: null,
@@ -95,7 +95,7 @@ const [lastRoll, setLastRoll] = useState({
    */
   const handleModifierSubmit = () => {
     if (!lastRoll.sides || !lastRoll.count || !lastRoll.type) return;
-    
+
     if (lastRoll.type === 'preset') {
       handleRollDice(lastRoll.sides);
     } else {
@@ -137,7 +137,7 @@ const [lastRoll, setLastRoll] = useState({
 
         {/* Preset Dice Buttons */}
         <View style={styles.diceRow}>
-          {['4','6','8','10','12','20','100'].map((s) => (
+          {['4', '6', '8', '10', '12', '20', '100'].map((s) => (
             <TouchableOpacity
               key={s}
               style={styles.diceButton}
@@ -177,6 +177,9 @@ const [lastRoll, setLastRoll] = useState({
 
         <Text style={styles.footer}>
           This app is written using React Native and the code is available on github.com/faensi/lazy_dice_roller
+        </Text>
+        <Text style={styles.footer}>
+          Inspired by the creativity of Michael Shea / Slyflourish / The Lazy DM.
         </Text>
       </KeyboardAvoidingView>
     </SafeAreaView>
