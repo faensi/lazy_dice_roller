@@ -86,7 +86,11 @@ const App = () => {
       >
         <View style={styles.headerRow}>
           <Text style={styles.title}>Lazy Dice Roller</Text>
-          <TouchableOpacity onPress={() => setShowInfo(true)} style={styles.infoIconContainer}>
+          <TouchableOpacity
+            onPress={() => setShowInfo(true)}
+            style={styles.infoIconContainer}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          >
             <Text style={styles.infoIcon}>i</Text>
           </TouchableOpacity>
         </View>
@@ -295,7 +299,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     position: 'absolute',
-    top: 0,  // so it covers the entire screen including header
+    top: 0,
     right: 0,
     bottom: 0,
     left: 0,
