@@ -16,6 +16,12 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "faensi.dev@gmail.com",
+        "ascAppId": "6740434854",
+        "appleTeamId": "R2MBXVW2H6"
+      }
+    }
   }
 }
